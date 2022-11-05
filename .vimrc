@@ -48,6 +48,7 @@ let vim_markdown_preview_github=1
 " YCM
 let g:ycm_always_populate_location_list = 1
 let g:ycm_goto_buffer_command = 'split-or-existing-window'
+let g:ycm_enable_semantic_highlighting=1
 
 " ack.vim
 let g:ackprg = 'ag --vimgrep'
@@ -63,6 +64,7 @@ nmap <leader>rv :vertical YcmCompleter GoTo<CR>
 nmap <leader>rt :tab YcmCompleter GoTo<CR>
 nmap <leader>rf :tab YcmCompleter GoToReferences<CR>
 nmap <leader>rw :tab YcmCompleter RefactorRename
+nmap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
 " FuzzyFinder
 nmap ,f :call fuf#setOneTimeVariables(['g:fuf_coveragefile_globPatterns', ['**/*.h', '**/*.c', '**/*.cpp', '**/*.sh', '**/*.py', '**/*.ltc', '**/*.md']]) \| FufCoverageFile<CR>
 nmap ,t :FufFile<CR>
