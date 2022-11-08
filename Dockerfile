@@ -34,7 +34,7 @@ RUN cd /tmp/; \
    make && make install && \
    cd /tmp/ && rm -rf ./Bear
 
-RUN groupadd -g 1085 -r vim && useradd -m -r -u 1085 -g vim vim
+RUN groupadd -g 1985 -r vim && useradd -m -r -u 1985 -g vim vim
 USER vim
 
 RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/vim/.vim/bundle/Vundle.vim
