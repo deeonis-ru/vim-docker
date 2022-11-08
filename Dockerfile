@@ -2,18 +2,18 @@
 FROM rockylinux:8
 
 RUN dnf clean packages
-RUN dnf -y --exclude=tzdata* update
-RUN dnf -y --exclude=tzdata* --exclude=java* --exclude=jna groupinstall "Development Tools"
-RUN dnf -y --exclude=tzdata* install cmake 
-RUN dnf -y --exclude=tzdata* install clang
-RUN dnf -y --exclude=tzdata* install clang-tools-extra
-RUN dnf -y --exclude=tzdata* install python3
-RUN dnf -y --exclude=tzdata* install python3-devel
-RUN dnf -y --exclude=tzdata* install ncurses-devel
-RUN dnf -y --exclude=tzdata* install openssl-devel
-RUN dnf -y --exclude=tzdata* install tmux
-RUN dnf -y --exclude=tzdata* install epel-release
-RUN dnf -y --exclude=tzdata* install the_silver_searcher
+RUN dnf -y  update
+RUN dnf -y  groupinstall "Development Tools"
+RUN dnf -y  install cmake 
+RUN dnf -y  install clang
+RUN dnf -y  install clang-tools-extra
+RUN dnf -y  install python3
+RUN dnf -y  install python3-devel
+RUN dnf -y  install ncurses-devel
+RUN dnf -y  install openssl-devel
+RUN dnf -y  install tmux
+RUN dnf -y  install epel-release
+RUN dnf -y  install the_silver_searcher
 RUN dnf -y remove vi
 
 RUN cd /tmp/ && \
