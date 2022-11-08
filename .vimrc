@@ -1,5 +1,5 @@
 set nocompatible              " be iMproved, required
-colorscheme lunaperche
+colorscheme habamax
 
 " set the runtime path to include Vundle and initialize
 filetype off                  " required
