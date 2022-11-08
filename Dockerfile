@@ -11,9 +11,10 @@ RUN dnf -y --exclude=tzdata* install python3
 RUN dnf -y --exclude=tzdata* install python3-devel
 RUN dnf -y --exclude=tzdata* install ncurses-devel
 RUN dnf -y --exclude=tzdata* install openssl-devel
+RUN dnf -y --exclude=tzdata* install tmux
+RUN dnf -y remove vi
 
-RUN dnf -y remove vi; \
-   cd /root/ && \
+RUN cd /tmp/ && \
    git clone https://github.com/vim/vim.git && \
    cd vim && \
    git checkout v9.0.0828 && \
@@ -21,9 +22,9 @@ RUN dnf -y remove vi; \
    ./configure --with-features=huge --enable-multibyte --enable-python3interp --enable-cscope --enable-luainterp && \
    make -j4 && \
    make install && \
-   cd /root/ && rm -rf ./vim
+   cd /tmp/ && rm -rf ./vim
 
-RUN cd /root/; \
+RUN cd /tmp/; \
    git clone https://github.com/rizsotto/Bear.git && \
    cd Bear && \
    git checkout 2.4.4 && \
@@ -31,20 +32,22 @@ RUN cd /root/; \
    cd build && \
    cmake -DENABLE_UNIT_TESTS=OFF -DENABLE_FUNC_TESTS=OFF ../ && \
    make && make install && \
-   cd /root/ && rm -rf ./Bear
+   cd /tmp/ && rm -rf ./Bear
 
-RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.vim/bundle/Vundle.vim
-ADD --link .vimrc /root/
+RUN groupadd -r vim && useradd -m -r -g vim vim
+USER vim
+
+RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/vim/.vim/bundle/Vundle.vim
+COPY --chown=vim:vim --link .vimrc /home/vim/
 RUN vim +PluginInstall +qall
 
-RUN cd /root/.vim/bundle/YouCompleteMe; \
+RUN cd /home/vim/.vim/bundle/YouCompleteMe; \
    git checkout 728b4772 && \
-   ./install.py --clangd-completer --force-sudo
+   ./install.py --clangd-completer
 
-RUN echo "alias ll='ls -la'" >> /root/.bashrc
-RUN echo "alias vi='vim'" >> /root/.bashrc
+RUN echo "alias ll='ls -la'" >> /home/vim/.bashrc
+RUN echo "alias vi='vim'" >> /home/vim/.bashrc
 
-RUN dnf -y --exclude=tzdata* install tmux
-ADD --link .tmux.conf /root/
+COPY --chown=vim:vim --link .tmux.conf /home/vim/
 
 ENTRYPOINT cd /sources/ && bash
