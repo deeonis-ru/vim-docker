@@ -12,6 +12,8 @@ RUN dnf -y --exclude=tzdata* install python3-devel
 RUN dnf -y --exclude=tzdata* install ncurses-devel
 RUN dnf -y --exclude=tzdata* install openssl-devel
 RUN dnf -y --exclude=tzdata* install tmux
+RUN dnf -y --exclude=tzdata* install epel-release
+RUN dnf -y --exclude=tzdata* install the_silver_searcher
 RUN dnf -y remove vi
 
 RUN cd /tmp/ && \
